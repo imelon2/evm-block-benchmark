@@ -1,26 +1,177 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ECharts Example</title>
-    <style>
-        /* 차트를 표시할 div 스타일 */
-        #chart {
-            width: 600px;
-            height: 400px;
-        }
-    </style>
+    <title>Document</title>
 </head>
-<body>
-    <!-- 차트를 표시할 div 요소 -->
-    <div id="chart"></div>
 
-    <!-- ECharts JavaScript 파일 로드 -->
-    <script src="node_modules/echarts/dist/echarts.min.js"></script>
+<body>
+    <div class="form__group field">
+        <input type="input" class="form__field" placeholder="Name" name="name" id='name' value="http://localhost:3347" />
+        <label for="name" class="form__label">Provider</label>
+    </div>
+    <div class="form__group field" style="display: flex;">
+        <div class="form__group field">
+            <input value="latest" type="input" class="form__field" placeholder="from" name="from" id='from' required />
+            <label for="from" class="form__label">From</label>
+            <span class="from_info">*enter `latest` for current block</span>
+        </div>
+        <div class="form__group field">
+            <input type="input" class="form__field" placeholder="to" name="to" id='to' required />
+            <label for="to" class="form__label">To</label>
+        </div>
+    </div>
+    <div class="btn-1__group">
+        <button onclick="getField()" class="btn-1" >Submit</button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="node_modules/ethers/dist/ethers.umd.min.js"></script>
 
     <!-- Custom Script -->
-    <script src="script.js"></script>
+    <script src="./src/check.js"></script>
+    <script src="./src/alert.js"></script>
 </body>
+<style>
+    .from_info {
+        transition: 0.2s;
+        font-size: 0.8rem;
+        color: #9b9b9b;
+    }
+
+    .form__group {
+        position: relative;
+        padding: 15px 0 0;
+        margin-top: 20px;
+        width: 50%;
+    }
+
+    .form__field {
+        font-family: inherit;
+        width: 100%;
+        border: 0;
+        border-bottom: 2px solid #9b9b9b;
+        outline: 0;
+        font-size: 1.3rem;
+        color: #fff;
+        padding: 7px 0;
+        background: transparent;
+        transition: border-color 0.2s;
+    }
+
+    .form__field::placeholder {
+        color: transparent;
+    }
+
+    .form__field:placeholder-shown~.form__label {
+        font-size: 1.3rem;
+        cursor: text;
+        top: 20px;
+    }
+
+    .form__label {
+        position: absolute;
+        top: 0;
+        display: block;
+        transition: 0.2s;
+        font-size: 1rem;
+        color: #9b9b9b;
+    }
+
+    .form__field:focus {
+        padding-bottom: 6px;
+        font-weight: 700;
+        border-width: 3px;
+        border-image: linear-gradient(to right, #11998e, #38ef7d);
+        border-image-slice: 1;
+    }
+
+    .form__field:focus~.form__label {
+        position: absolute;
+        top: 0;
+        display: block;
+        transition: 0.2s;
+        font-size: 1rem;
+        color: #11998e;
+        font-weight: 700;
+    }
+
+    /* reset input */
+    .form__field:required,
+    .form__field:invalid {
+        box-shadow: none;
+    }
+
+    /* demo */
+    body {
+        font-family: "Poppins", sans-serif;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        font-size: 1.5rem;
+        background-color: #222222;
+    }
+
+
+
+.btn-1__group {
+    width: 50%;
+}
+
+    .btn-1,
+.btn-1 *,
+.btn-1 :after,
+.btn-1 :before,
+.btn-1:after,
+.btn-1:before {
+  border: 0 solid;
+  box-sizing: border-box;
+}
+.btn-1 {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-appearance: button;
+  background-color: #000;
+  background-image: none;
+  color: #9b9b9b;
+  cursor: pointer;
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif,
+    Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+  font-size: 0.8rem;
+  font-weight: 900;
+  line-height: 1.5;
+  margin: 0;
+  /* -webkit-mask-image: -webkit-radial-gradient(#9b9b9b, #fff); */
+  padding: 0;
+  text-transform: uppercase;
+  float: right;
+}
+.btn-1:disabled {
+  cursor: default;
+}
+.btn-1:-moz-focusring {
+  outline: auto;
+}
+.btn-1 svg {
+  display: block;
+  vertical-align: middle;
+}
+.btn-1 [hidden] {
+  display: none;
+}
+.btn-1 {
+  border-radius: 99rem;
+  border-width: 1px;
+  padding: 0.5rem 1.5rem;
+}
+.btn-1:hover {
+  color: #ffffff;
+}
+
+</style>
+
 </html>
