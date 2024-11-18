@@ -1,3 +1,11 @@
+
+const NullFieldAlert = (fieldName) => {
+  Swal.fire({
+    title: `Cannot be null ${fieldName}` ,
+    icon: "error",
+  });
+};
+
 const InvaildProviderAlert = (error) => {
   Swal.fire({
     icon: "error",

@@ -8,8 +8,10 @@ var option: EChartsOption;
 
 option = {
   title: {
-    text: 'Temperature Change in the Coming Week'
+    text: 'Temperature Change in the Coming Week',
+    padding:10
   },
+  color:"",
   tooltip: {
     trigger: 'axis'
   },
@@ -45,9 +47,9 @@ option = {
       data: [10, 11, 13, 11, 12, 12, 9],
       markPoint: {
         data: [
-          { type: 'max', name: 'Max' },
+          { type: 'max', name: 'Max'},
           { type: 'min', name: 'Min' }
-        ]
+        ],
       },
       markLine: {
         data: [{ type: 'average', name: 'Avg' }]

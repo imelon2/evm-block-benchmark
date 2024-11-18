@@ -5,6 +5,21 @@ async function getField() {
 
   const provider = new ethers.JsonRpcProvider(providerUrl);
 
+  if (providerUrl == "") {
+    NullFieldAlert("provider url")
+    return
+  }
+
+  if (from == "") {
+    NullFieldAlert("`From` field")
+    return
+  }
+
+  if (to == "") {
+    NullFieldAlert("`To` field")
+    return
+  }
+
   // verify Provider
   try {
     await provider.getNetwork();

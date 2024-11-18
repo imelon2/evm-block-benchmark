@@ -28,6 +28,9 @@ async function main() {
    const a =  re.map((b) => {
         return ethers.formatUnits(b!.baseFeePerGas!.toString(),9)
     })
+   const aaa =  re.map((b) => {
+        return b?.gasUsed
+    })
     console.log(a);
     
 }
