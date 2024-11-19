@@ -56,25 +56,23 @@ ChartTxCount.setOption(txCountOption([]))
 const chartGasUsedDom = document.getElementById('chart_gasUsed');
 const ChartGasUsed = echarts.init(chartGasUsedDom);
 ChartGasUsed.setOption(gasUsedOption([]))
+
 await initChart()
 
-// 차트 옵션을 설정합니다.
-// const option = {
-//     title: {
-//         text: 'Sample Line Chart'
-//     },
-//     tooltip: {},
-//     xAxis: {
-//         type: 'category',
-//         data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-//     },
-//     yAxis: {
-//         type: 'value'
-//     },
-//     series: [{
-//         data: [120, 200, 150, 80, 70, 110, 130],
-//         type: 'line'
-//     }]
-// };
 
-// 옵션을 차트에 적용하고 렌더링합니다.
+new gridjs.Grid({
+    columns: [],
+    data: [
+    ]
+  }).render(document.getElementById("wrapper"));
+
+// new gridjs.Grid({
+//     columns: ["Name", "Email", "Phone Number"],
+//     data: [
+//       ["John", "john@example.com", "(353) 01 222 3333"],
+//       ["Mark", "mark@gmail.com", "(01) 22 888 4444"],
+//       ["Eoin", "eoin@gmail.com", "0097 22 654 00033"],
+//       ["Sarah", "sarahcdd@gmail.com", "+322 876 1233"],
+//       ["Afshin", "afshin@mail.com", "(353) 22 87 8356"]
+//     ]
+//   }).render(document.getElementById("wrapper"));

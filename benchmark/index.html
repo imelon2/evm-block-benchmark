@@ -2,6 +2,10 @@
 <html lang="en">
 
 <head>
+    <link href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css" rel="stylesheet" />
+</head>
+
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ECharts Example</title>
@@ -21,11 +25,18 @@
             width: 1000px;
             height: 400px;
         }
+
+        .table {
+            margin-top: 50px;
+            width: 1000px;
+            height: 400px;
+        }
     </style>
 </head>
 
 <body>
     <!-- 차트를 표시할 div 요소 -->
+    <div id="wrapper" class="table"></div>
     <div id="chart_gasPrice" class="chart"></div>
     <div id="chart_txCount" class="chart"></div>
     <div id="chart_gasUsed" class="chart"></div>
@@ -33,6 +44,9 @@
     <!-- ECharts JavaScript 파일 로드 -->
     <script src="../node_modules/echarts/dist/echarts.min.js"></script>
     <script src="../node_modules/ethers/dist/ethers.umd.min.js"></script>
+
+    <!-- gridjs JavaScript 파일 로드 -->
+    <script src="https://unpkg.com/gridjs/dist/gridjs.umd.js"></script>
 
     <!-- Custom Script -->
     <script type="module" src="../src/benckmark.js"></script>
