@@ -18,20 +18,22 @@ async function main() {
 
     const xFiled = Array.from({ length: to - from + 1 }, (_, i) => from + i);
 
-    const re = await Promise.all(
+    const blocks = await Promise.all(
         xFiled.map(async (num) => {
             return provider.getBlock(num);
         })
     );
 
-    console.log(re);
-   const a =  re.map((b) => {
-        return ethers.formatUnits(b!.baseFeePerGas!.toString(),9)
+
+    let totalFee = BigInt(0)
+    blocks.forEach((b) => {
+        if(!b?.baseFeePerGas) {
+            return
+        }
+        totalFee = b.baseFeePerGas * b.gasUsed
     })
-   const aaa =  re.map((b) => {
-        return b?.gasUsed
-    })
-    console.log(a);
+
+    console.log(ethers.formatEther);
     
 }
 
