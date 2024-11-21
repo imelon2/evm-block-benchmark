@@ -167,3 +167,60 @@ export const gasUsedOption = (range) => {
     ]
   };
 }
+
+export const blockSizeOption = (range) => {
+  return {
+    title: {
+      text: "Block per size",
+    },
+    tooltip: {
+      trigger: 'axis',
+      axisPointer: {
+        type: 'shadow'
+      }
+    },
+    grid: {
+      top:"20%",
+    },
+    toolbox: {
+      show: true,
+      feature: {
+        dataZoom: {
+          yAxisIndex: "none",
+        },
+        dataView: { readOnly: false },
+        magicType: { type: ["line", "bar"] },
+        restore: {},
+        saveAsImage: {},
+      },
+    },
+    xAxis: [
+      {
+        type: 'category',
+        data: range,
+        axisTick: {
+          alignWithLabel: true
+        }
+      }
+    ],
+    yAxis: [
+      {
+        type: 'value'
+      }
+    ],
+    series: [
+      {
+        name: 'gas used',
+        type: 'bar',
+        barWidth: '50%',
+        data: [],
+        markPoint: {
+          data: [
+            { type: 'max', name: 'Max' },
+            { type: 'min', name: 'Min' }
+          ],
+        }
+      }
+    ]
+  };
+}

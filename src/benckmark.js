@@ -10,54 +10,77 @@ function getQueryParams() {
 }
 
 async function initChart() {
-  const { providerurl, to, from } = getQueryParams();
-  const provider = new ethers.JsonRpcProvider(providerurl);
-  const xFiled = Array.from({ length: from - to + 1 }, (_, i) => to + i);
+  try {
+    const { providerurl, to, from } = getQueryParams();
+    const provider = new ethers.JsonRpcProvider(providerurl);
 
-  const blocks = await Promise.all(
-    xFiled.map(async (num) => {
-      return provider.getBlock(num);
-    })
-  );
+    const xFiled = Array.from({ length: from - to + 1 }, (_, i) => to + i);
 
-  const gasPrice = blocks.map((b) => {
-    return ethers.formatUnits(b.baseFeePerGas.toString(), 9);
-  });
+    const blocks = await Promise.all(
+      xFiled.map(async (num) => {
+        return provider.getBlock(num);
+      })
+    );
+    
+    const gasPrice = blocks.map((b) => {
+        return ethers.formatUnits(b.baseFeePerGas.toString(), 9);
+    });
+    
+    const txCount = blocks.map((b) => {
+        return b.transactions.length;
+    });
+    
+    const gasUsed = blocks.map((b) => {
+        return b.gasUsed;
+    });
+    
+    const size = blocks.map((b) => {
+        return b.gasUsed;
+    });
+    
+    const gasPriceOp = gasPriceOption(xFiled);
+    gasPriceOp.series[0].data = gasPrice;
+    ChartGasPrice.setOption(gasPriceOp);
+    
+    const txCountOp = txCountOption(xFiled);
+    txCountOp.series[0].data = txCount;
+    ChartTxCount.setOption(txCountOp);
+    
+    const gasUsedtOp = gasUsedOption(xFiled);
+    gasUsedtOp.series[0].data = gasUsed;
+    ChartGasUsed.setOption(gasUsedtOp);
+    
+    // const blockSizeOp = blockSizeOption(xFiled);
+    // blockSizeOp.series[0].data = gasUsed;
+    // ChartGasUsed.setOption(gasUsedtOp);
+    
+    const totalTx = txCount.reduce(
+        (accumulator, currentValue) => accumulator + currentValue,
+        0
+    );
+    
+    let totalFee = BigInt(0);
+    blocks.forEach((b) => {
+        totalFee += b.baseFeePerGas * b.gasUsed;
+    });
+    
+    
+    let elapsed = (blocks[blocks.length-1].timestamp - blocks[0].timestamp) || undefined
 
-  const txCount = blocks.map((b) => {
-    return b.transactions.length;
-  });
+    new gridjs.Grid({
+      columns: ["Total block count","Total tx count", "Total tx fee (eth)","Elapsed time"],
+      data: [[blocks.length,`${totalTx} (${totalTx -blocks.length})`, ethers.formatEther(totalFee), `${elapsed}s`]],
+    }).render(document.getElementById("total"));
 
-  const gasUsed = blocks.map((b) => {
-    return b.gasUsed;
-  });
-
-  const gasPriceOp = gasPriceOption(xFiled);
-  gasPriceOp.series[0].data = gasPrice;
-  ChartGasPrice.setOption(gasPriceOp);
-
-  const txCountOp = txCountOption(xFiled);
-  txCountOp.series[0].data = txCount;
-  ChartTxCount.setOption(txCountOp);
-
-  const gasUsedtOp = gasUsedOption(xFiled);
-  gasUsedtOp.series[0].data = gasUsed;
-  ChartGasUsed.setOption(gasUsedtOp);
-
-  const totalTx = txCount.reduce(
-    (accumulator, currentValue) => accumulator + currentValue,
-    0
-  );
-
-  let totalFee = BigInt(0)
-  blocks.forEach((b) => {
-      totalFee = b.baseFeePerGas * b.gasUsed
-  })
-
-  new gridjs.Grid({
-    columns: ["", "Total", "TPS"],
-    data: [[totalTx, ethers.formatEther(totalFee),""]],
-  }).render(document.getElementById("wrapper"));
+    let bpt = elapsed/blocks.length
+    let tps = (totalTx -blocks.length)/elapsed
+    new gridjs.Grid({
+      columns: ["Block per Time","Tx per second(TPS)"],
+      data: [[`${bpt.toFixed(2)}s`,tps]],
+    }).render(document.getElementById("average"));
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 const chartGasPriceDom = document.getElementById("chart_gasPrice");
@@ -72,21 +95,8 @@ const chartGasUsedDom = document.getElementById("chart_gasUsed");
 const ChartGasUsed = echarts.init(chartGasUsedDom);
 ChartGasUsed.setOption(gasUsedOption([]));
 
+// const chartSizeDom = document.getElementById("chart_size");
+// const ChartSize = echarts.init(chartSizeDom);
+// ChartSize.setOption(blockSizeOption([]));
+
 await initChart();
-
-// new gridjs.Grid({
-//     columns: [],
-//     data: [
-//     ]
-//   }).render(document.getElementById("wrapper"));
-
-// new gridjs.Grid({
-//     columns: ["Name", "Email", "Phone Number"],
-//     data: [
-//       ["John", "john@example.com", "(353) 01 222 3333"],
-//       ["Mark", "mark@gmail.com", "(01) 22 888 4444"],
-//       ["Eoin", "eoin@gmail.com", "0097 22 654 00033"],
-//       ["Sarah", "sarahcdd@gmail.com", "+322 876 1233"],
-//       ["Afshin", "afshin@mail.com", "(353) 22 87 8356"]
-//     ]
-//   }).render(document.getElementById("wrapper"));

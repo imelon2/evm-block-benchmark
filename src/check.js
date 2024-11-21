@@ -50,10 +50,6 @@ if(to > from) {
     OutBlockRangeAlert(from,to)
     return
 }
-  // 값 출력
-  console.log("Name:", providerUrl);
-  console.log("From:", from);
-  console.log("Total:", to);
   
   window.location.href = `/benchmark/?providerurl=${providerUrl}&from=${from}&to=${to}`;
 }
