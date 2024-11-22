@@ -1,4 +1,5 @@
-import { gasPriceOption, gasUsedOption, txCountOption } from "./options.js";
+import { gasPriceOption, gasUsedOption, txCountOption, blockSizeOption, blockPerSecondOption } from "./options.js";
+import { arb_getBlockByNumber } from "./rpc.js";
 
 function getQueryParams() {
   const params = new URLSearchParams(window.location.search);
@@ -12,13 +13,13 @@ function getQueryParams() {
 async function initChart() {
   try {
     const { providerurl, to, from } = getQueryParams();
-    const provider = new ethers.JsonRpcProvider(providerurl);
 
     const xFiled = Array.from({ length: from - to + 1 }, (_, i) => to + i);
 
     const blocks = await Promise.all(
       xFiled.map(async (num) => {
-        return provider.getBlock(num);
+        const numHex = "0x" + (num).toString(16)
+        return arb_getBlockByNumber(providerurl,[numHex,false])
       })
     );
     
@@ -31,12 +32,25 @@ async function initChart() {
     });
     
     const gasUsed = blocks.map((b) => {
-        return b.gasUsed;
+        return parseInt(b.gasUsed, 16);
     });
     
+    
     const size = blocks.map((b) => {
-        return b.gasUsed;
+      return parseInt(b.size, 16);
     });
+    
+    const counts = new Map();
+    blocks.forEach((b) => {
+      if (counts.has(parseInt(b.timestamp, 16))) {
+        counts.set(parseInt(b.timestamp, 16), counts.get(parseInt(b.timestamp, 16)) + 1);
+      } else {
+        counts.set(parseInt(b.timestamp, 16), 1);
+      }
+    });
+    const xFiledSecond = Array.from(counts.keys());
+    const blockPerSecondCount = Array.from(counts.values());
+
     
     const gasPriceOp = gasPriceOption(xFiled);
     gasPriceOp.series[0].data = gasPrice;
@@ -50,30 +64,34 @@ async function initChart() {
     gasUsedtOp.series[0].data = gasUsed;
     ChartGasUsed.setOption(gasUsedtOp);
     
-    // const blockSizeOp = blockSizeOption(xFiled);
-    // blockSizeOp.series[0].data = gasUsed;
-    // ChartGasUsed.setOption(gasUsedtOp);
+    const blockSizeOp = blockSizeOption(xFiled);
+    blockSizeOp.series[0].data = size;
+    ChartSize.setOption(blockSizeOp);
     
-    const totalTx = txCount.reduce(
-        (accumulator, currentValue) => accumulator + currentValue,
-        0
-    );
+    const blockPerSecondOp = blockPerSecondOption(xFiledSecond);
+    blockPerSecondOp.series[0].data = blockPerSecondCount;
+    ChartBlockPerCount.setOption(blockPerSecondOp);
     
-    let totalFee = BigInt(0);
+
+    let totalFee = 0
     blocks.forEach((b) => {
-        totalFee += b.baseFeePerGas * b.gasUsed;
+      totalFee += b.baseFeePerGas * b.gasUsed;
     });
     
-    
-    let elapsed = (blocks[blocks.length-1].timestamp - blocks[0].timestamp) || undefined
+    let totalBlockCount = blocks.length
+    let elapsed = (blocks[totalBlockCount-1].timestamp - blocks[0].timestamp) || undefined
+    let totalTx = txCount.reduce(
+      (accumulator, currentValue) => accumulator + currentValue,
+      0
+    );
 
     new gridjs.Grid({
       columns: ["Total block count","Total tx count", "Total tx fee (eth)","Elapsed time"],
-      data: [[blocks.length,`${totalTx} (${totalTx -blocks.length})`, ethers.formatEther(totalFee), `${elapsed}s`]],
+      data: [[totalBlockCount,`${totalTx} (${totalTx - totalBlockCount})`, ethers.formatEther(totalFee.toString()), `${elapsed}s`]],
     }).render(document.getElementById("total"));
-
-    let bpt = elapsed/blocks.length
-    let tps = (totalTx -blocks.length)/elapsed
+    
+    let bpt = elapsed/totalBlockCount
+    let tps = (totalTx - totalBlockCount)/elapsed
     new gridjs.Grid({
       columns: ["Block per Time","Tx per second(TPS)"],
       data: [[`${bpt.toFixed(2)}s`,tps]],
@@ -95,8 +113,12 @@ const chartGasUsedDom = document.getElementById("chart_gasUsed");
 const ChartGasUsed = echarts.init(chartGasUsedDom);
 ChartGasUsed.setOption(gasUsedOption([]));
 
-// const chartSizeDom = document.getElementById("chart_size");
-// const ChartSize = echarts.init(chartSizeDom);
-// ChartSize.setOption(blockSizeOption([]));
+const chartSizeDom = document.getElementById("chart_size");
+const ChartSize = echarts.init(chartSizeDom);
+ChartSize.setOption(blockSizeOption([]));
+
+const chartBlockPerCountDom = document.getElementById("chartblockpercount");
+const ChartBlockPerCount = echarts.init(chartBlockPerCountDom);
+ChartBlockPerCount.setOption(blockPerSecondOption([]));
 
 await initChart();

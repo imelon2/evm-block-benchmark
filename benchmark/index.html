@@ -3,6 +3,7 @@
 
 <head>
     <link href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css" rel="stylesheet" />
+    <title>EVM Block Benchmark</title>
 </head>
 
 <head>
@@ -39,6 +40,7 @@
     <div id="total" class="table"></div>
     <div id="average" class="table" style="margin-top: 30px;"></div>
     <div id="chart_gasPrice" class="chart"></div>
+    <div id="chartblockpercount" class="chart"></div>
     <div id="chart_txCount" class="chart"></div>
     <div id="chart_gasUsed" class="chart"></div>
     <div id="chart_size" class="chart"></div>
@@ -46,6 +48,7 @@
     <!-- ECharts JavaScript 파일 로드 -->
     <script src="../node_modules/echarts/dist/echarts.min.js"></script>
     <script src="../node_modules/ethers/dist/ethers.umd.min.js"></script>
+    <script src="../node_modules/axios/dist/axios.min.js"></script>
 
     <!-- gridjs JavaScript 파일 로드 -->
     <script src="https://unpkg.com/gridjs/dist/gridjs.umd.js"></script>
