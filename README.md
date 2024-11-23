@@ -1,6 +1,8 @@
 # EVM Blockchain Benchmarking UI
 
-[![ethereum badge]][ethereum]
+![EVM Compatible](https://img.shields.io/badge/EVM-Compatible-%234ABFED.svg?style=for-the-badge&logo=ethereum&logoColor=white)
+![Blockchain](https://img.shields.io/badge/Blockchain-%2300A67E.svg?style=for-the-badge&logo=blockchain-dot-com&logoColor=white)
+
 
 ## 📋 Overview
 This repo provides an easy-to-use web interface to benchmark EVM-compatible blockchains. The UI allows you to input a `Provider URL` and specify a `block range`, and it will automatically collect and display essential data like:
@@ -23,5 +25,3 @@ You can quickly access and use the tool directly via the following link:
 
 ## 🖼️ Example Charts
 
-
-[ethereum]: https://ethereum.org
