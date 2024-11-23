@@ -19,7 +19,7 @@ You can quickly access and use the tool directly via the following link:
 👉 https://imelon2.github.io/evm-block-benchmark/
 
 > [!IMPORTANT]
-> Due to GitHub Pages policies, the blockchain RPC provider URL must use either HTTPS or localhost.
+> Due to GitHub Pages policies, the blockchain RPC provider URL must use either HTTPS or localhost.</br>
 > If your provider uses HTTP (not HTTPS), you cannot directly use the tool on GitHub Pages due to security policies. Follow next steps to run the tool locally
 
 </br>
@@ -36,6 +36,8 @@ cd evm-block-benchmark
 </div>
 
 (1) Install the *Live Server extension* from the VS Code Extensions Marketplace.
+
+</br>
 
 <img src="./images/goLive.png">
 
