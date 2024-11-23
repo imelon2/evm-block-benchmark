@@ -1,6 +1,7 @@
 # EVM Blockchain Benchmarking UI
 
 ![EVM Compatible](https://img.shields.io/badge/EVM-Compatible-%234ABFED.svg?style=for-the-badge&logo=ethereum&logoColor=white)
+![Axios](https://img.shields.io/badge/Axios-%235A29E4.svg?style=for-the-badge&logo=axios&logoColor=white)
 ![Blockchain](https://img.shields.io/badge/Blockchain-%2300A67E.svg?style=for-the-badge&logo=blockchain-dot-com&logoColor=white)
 
 
@@ -19,8 +20,27 @@ You can quickly access and use the tool directly via the following link:
 
 > [!IMPORTANT]
 > Due to GitHub Pages policies, the blockchain RPC provider URL must use either HTTPS or localhost.
+> If your provider uses HTTP (not HTTPS), you cannot directly use the tool on GitHub Pages due to security policies. Follow next steps to run the tool locally
 
 </br>
+
+## 🌐 Running Locally for HTTP Providers
+### 1. Clone the Repository
+```shell
+git clone https://github.com/imelon2/evm-block-benchmark.git
+cd evm-block-benchmark
+```
+### 2. Live Server VS Code Extension
+<div align="center">
+<img src="./images/liveserver.png" width="40%">
+</div>
+
+(1) Install the *Live Server extension* from the VS Code Extensions Marketplace.
+
+<img src="./images/goLive.png">
+
+(2) Open a project and click to `[Go Live]` from the status bar to turn the server on/off.
+
 </br>
 
 ## 🖼️ Example Charts
