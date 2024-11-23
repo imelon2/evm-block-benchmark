@@ -22,3 +22,6 @@ You can quickly access and use the tool directly via the following link:
 </br>
 
 ## 🖼️ Example Charts
+
+
+[ethereum]: https://ethereum.org
