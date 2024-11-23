@@ -51,5 +51,5 @@ if(to > from) {
     return
 }
   
-  window.location.href = `/benchmark/?providerurl=${providerUrl}&from=${from}&to=${to}`;
+  window.location.href = `./benchmark/?providerurl=${providerUrl}&from=${from}&to=${to}`;
 }
