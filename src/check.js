@@ -50,6 +50,11 @@ if(to > from) {
     OutBlockRangeAlert(from,to)
     return
 }
-  
-  window.location.href = `./benchmark/?providerurl=${providerUrl}&from=${from}&to=${to}`;
+
+const basePath = window.location.pathname.split('/')[1]; // 첫 번째 디렉토리 추출
+const repositoryName = basePath ? `/${basePath}` : '';   // 루트에 있을 경우 빈 문자열
+
+  // 이동할 경로 설정
+  window.location.href = `${repositoryName}/benchmark/?providerurl=${providerUrl}&from=${from}&to=${to}`;
+  // window.location.href = `./benchmark/?providerurl=${providerUrl}&from=${from}&to=${to}`;
 }
