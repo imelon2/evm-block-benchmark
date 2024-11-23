@@ -3,7 +3,8 @@ async function getField() {
   let from = document.getElementById("from").value;
   let to = document.getElementById("to").value;
 
-  const provider = new ethers.JsonRpcProvider(providerUrl);
+  const provider = new ethers.WebSocketProvider(providerUrl);
+  // const provider = new ethers.JsonRpcProvider(providerUrl);
 
   if (providerUrl == "") {
     NullFieldAlert("provider url")
