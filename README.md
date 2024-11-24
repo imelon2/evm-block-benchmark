@@ -46,4 +46,18 @@ cd evm-block-benchmark
 </br>
 
 ## 🖼️ Example Charts
+<div align="center">
+    <img src="./images/data.png" >
+</div>
 
+<div align="center">
+    <img src="./images/BlockPerGasPrice.png" >
+</div>
+
+<div align="center">
+<img src="./images/blockPerTx.png">
+</div>
+
+</br>
+</br>
+<hr/>

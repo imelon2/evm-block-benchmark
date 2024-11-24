@@ -228,7 +228,7 @@ export const blockSizeOption = (range) => {
 export const blockPerSecondOption = (range) => {
   return {
     title: {
-      text: "Blocks created per second",
+      text: "Blocks created per timestamp",
     },
     tooltip: {
       trigger: 'axis',

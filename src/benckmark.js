@@ -87,14 +87,14 @@ async function initChart() {
 
     new gridjs.Grid({
       columns: ["Total block count","Total tx count", "Total tx fee (eth)","Elapsed time"],
-      data: [[totalBlockCount,`${totalTx} (${totalTx - totalBlockCount})`, ethers.formatEther(totalFee.toString()), `${elapsed}s`]],
+      data: [[totalBlockCount,`${totalTx}`, ethers.formatEther(totalFee.toString()), `${elapsed}s`]],
     }).render(document.getElementById("total"));
     
     let bpt = elapsed/totalBlockCount
-    let tps = (totalTx - totalBlockCount)/elapsed
+    let tps = totalTx/elapsed
     new gridjs.Grid({
-      columns: ["Block per Time","Tx per second(TPS)"],
-      data: [[`${bpt.toFixed(2)}s`,tps]],
+      columns: ["Generation time per block","Tx per second(TPS)"],
+      data: [[`${bpt.toFixed(2)}s`,tps.toFixed(2)]],
     }).render(document.getElementById("average"));
   } catch (error) {
     console.log(error);
