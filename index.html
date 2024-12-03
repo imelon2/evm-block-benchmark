@@ -7,35 +7,6 @@
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
     <title>EVM Block Benchmark</title>
 </head>
-
-<body>
-    <div class="form__group field">
-        <input type="input" class="form__field" placeholder="Name" name="name" id='name' value="http://localhost:3347" />
-        <label for="name" class="form__label">Provider</label>
-    </div>
-    <div class="form__group field" style="display: flex;">
-        <div class="form__group field">
-            <input value="latest" type="input" class="form__field" placeholder="from" name="from" id='from' required />
-            <label for="from" class="form__label">From</label>
-            <span class="from_info">*enter `latest` for current block</span>
-        </div>
-        <div class="form__group field">
-            <input type="input" class="form__field" placeholder="to" name="to" id='to' required />
-            <label for="to" class="form__label">To</label>
-        </div>
-    </div>
-    <div class="btn-1__group">
-        <button onclick="getField()" class="btn-1" >Submit</button>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.13.4/ethers.umd.min.js" integrity="sha512-V3xRGsQMQ8CG4l2gVN44TCDmNY5cdlxbSvejrgmWxcLKHft0Q3XQDbeuJ9aot14mpNuRWGtI//WKraedDGNZ+g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <!-- <script src="./js/ethers/dist/ethers.umd.min.js"></script> -->
-
-    <!-- Custom Script -->
-    <script src="./src/check.js"></script>
-    <script src="./src/alert.js"></script>
-</body>
 <style>
     .from_info {
         transition: 0.2s;
@@ -175,5 +146,33 @@
 }
 
 </style>
+<body>
+    <div class="form__group field">
+        <input type="input" class="form__field" placeholder="Name" name="name" id='name' value="http://localhost:3347" />
+        <label for="name" class="form__label">Provider</label>
+    </div>
+    <div class="form__group field" style="display: flex;">
+        <div class="form__group field">
+            <input value="latest" type="input" class="form__field" placeholder="from" name="from" id='from' required />
+            <label for="from" class="form__label">From</label>
+            <span class="from_info">*enter `latest` for current block</span>
+        </div>
+        <div class="form__group field">
+            <input type="input" class="form__field" placeholder="to" name="to" id='to' required />
+            <label for="to" class="form__label">To</label>
+        </div>
+    </div>
+    <div class="btn-1__group">
+        <button onclick="getField()" class="btn-1" >Submit</button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.13.4/ethers.umd.min.js" integrity="sha512-V3xRGsQMQ8CG4l2gVN44TCDmNY5cdlxbSvejrgmWxcLKHft0Q3XQDbeuJ9aot14mpNuRWGtI//WKraedDGNZ+g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- <script src="./js/ethers/dist/ethers.umd.min.js"></script> -->
+
+    <!-- Custom Script -->
+    <script src="./src/check.js"></script>
+    <script src="./src/alert.js"></script>
+</body>
 
 </html>
